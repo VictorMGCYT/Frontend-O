@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Proyecto Next.js
 
-## Getting Started
+Este es un proyecto basado en Next.js. Sigue las siguientes instrucciones para instalarlo y ejecutarlo correctamente.
 
-First, run the development server:
+## Requisitos previos
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Antes de comenzar, asegúrate de tener instalado:
+- [Node.js](https://nodejs.org/) (versión recomendada: LTS)
+- [npm](https://www.npmjs.com/) o [yarn](https://yarnpkg.com/)
+
+## Instalación
+
+Clona el repositorio y navega al directorio del proyecto:
+
+```sh
+git clone <URL_DEL_REPOSITORIO>
+cd <NOMBRE_DEL_PROYECTO>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Instala las dependencias utilizando la opción `--legacy-peer-deps` para evitar conflictos:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+npm install --legacy-peer-deps
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Si prefieres usar `yarn`, puedes instalar las dependencias con:
 
-## Learn More
+```sh
+yarn install --ignore-engines
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Ejecución del proyecto
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Para iniciar el servidor de desarrollo, ejecuta:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```sh
+npm run dev
+```
 
-## Deploy on Vercel
+o con yarn:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```sh
+yarn dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Esto iniciará el servidor en `http://localhost:3000/`.
+
+## Construcción y despliegue
+
+Para generar una versión optimizada para producción:
+
+```sh
+npm run build
+npm run start
+```
+
+## Contacto
+
+Si tienes preguntas o problemas, abre un issue en el repositorio o contacta al equipo de desarrollo.
