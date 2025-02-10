@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import AddDentist from "./Home";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
 
@@ -20,16 +21,16 @@ export default function Home({ children }: { children: React.ReactNode }) {
     }, []) 
 
     return (
-        
-        <>
-            <SidebarProvider>
+        <SidebarProvider>
+            <div className="flex h-screen">
+                {/* Sidebar */}
                 <AppSidebar />
-                <main>
-                    <SidebarTrigger />
+            </div>
+            {/* Contenido principal */}
+            <div className="flex-1 flex flex-col w-full p-6">
+                    <AddDentist />
                     {children}
-                </main>
-            </SidebarProvider>
-        </>
-
-    )
+                </div>
+        </SidebarProvider>
+    );    
 }
