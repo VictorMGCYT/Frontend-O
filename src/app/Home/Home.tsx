@@ -10,15 +10,13 @@ export default function AddDentist() {
     const router = useRouter();
     const url: string | undefined = process.env.NEXT_PUBLIC_API;
 
+    const token = sessionStorage.getItem('token');
     const [dentistData, setDentistData] = useState({
         dentista_nombres: "",
         dentista_apellidos: "",
         dentista_telefono: "",
         dentista_domicilio: "",
         dentista_cedula: "",
-        dentista_eliminado: false,
-        dentista_id: "", // ID generado aleatoriamente
-        dentista_creacion: "", // Fecha de creación
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,10 +27,12 @@ export default function AddDentist() {
     };
 
     const handleSubmit = () => {
-        fetch(`${url}/dentists/add`, {
+        fetch(`${url}/dentista/create`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                'Authorization': `Bearer ${token}`
+
             },
             body: JSON.stringify(dentistData),
         })
