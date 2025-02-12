@@ -20,7 +20,6 @@ export default function Registrar() {
         formData.append('user_password', password);
         formData.append('user_isActive', 'true');
         formData.append('user_roles', role);
-
         fetch(`${url}/auth/Create`, {
             method: 'POST',
             headers: {
