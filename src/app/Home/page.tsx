@@ -1,9 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/app-sidebar"
-
 export default function Home({ children }: { children: React.ReactNode }) {
 
     const router = useRouter();
@@ -22,13 +19,7 @@ export default function Home({ children }: { children: React.ReactNode }) {
     return (
         
         <>
-            <SidebarProvider>
-                <AppSidebar />
-                <main>
-                    <SidebarTrigger />
-                    {children}
-                </main>
-            </SidebarProvider>
+            
         </>
 
     )

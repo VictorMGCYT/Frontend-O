@@ -59,7 +59,7 @@ export default function Login() {
     return (
         
         <>
-            <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+            <div className="flex flex-col items-center justify-center h-screen bg-gray-100 w-screen mt-[-40px]">
                 <h1 className="text-4xl mb-[30px] font-bold">
                     Inicia Sesión
                 </h1>
