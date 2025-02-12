@@ -63,55 +63,56 @@ export default function Agregar() {
 
     return (
         <>
-            <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-                <h1 className="text-4xl mb-[30px] font-bold">
-                    Agregar Paciente
-                </h1>
-                <div className="w-[300px] lg:w-[400px] border border-gray-300 p-[30px] rounded-md shadow-[10px_10px_30px_rgba(0,0,0,0.6)]">
-                    <Label>Nombres</Label>
-                    <Input
-                        type="text" placeholder="Nombre"
-                        id="paciente_nombres"
-                        name="paciente_nombres"
-                        value={pacienteData.paciente_nombres}
-                        onChange={handleChange}
-                        className="w-full"
-                    />
+            <div className="flex justify-center items-center min-h-screen white w-screen">
+                <div className="w-full p-8 bg-gray-100 shadow-md rounded-lg">
+                    <h1 className="text-2xl font-bold text-center mb-6">Agregar Paciente</h1>
+                    <div className="space-y-5">
+                        <Label>Nombres</Label>
+                        <Input
+                            type="text" placeholder="Nombre"
+                            id="paciente_nombres"
+                            name="paciente_nombres"
+                            value={pacienteData.paciente_nombres}
+                            onChange={handleChange}
+                            className="w-full"
+                        />
 
-                    <Label>Apellidos</Label>
-                    <Input
-                        type="text" placeholder="Apellido"
-                        id="paciente_apellidos"
-                        name="paciente_apellidos"
-                        value={pacienteData.paciente_apellidos}
-                        onChange={handleChange}
-                        className="w-full"
-                    />
+                        <Label>Apellidos</Label>
+                        <Input
+                            type="text" placeholder="Apellido"
+                            id="paciente_apellidos"
+                            name="paciente_apellidos"
+                            value={pacienteData.paciente_apellidos}
+                            onChange={handleChange}
+                            className="w-full"
+                        />
 
-                    <Label>Telefono</Label>
-                    <Input
-                        type="text" placeholder="Telefono"
-                        id="paciente_telefono"
-                        name="paciente_telefono"
-                        value={pacienteData.paciente_telefono}
-                        onChange={handleChange}
-                        className="w-full"
-                    />
+                        <Label>Telefono</Label>
+                        <Input
+                            type="text" placeholder="Telefono"
+                            id="paciente_telefono"
+                            name="paciente_telefono"
+                            value={pacienteData.paciente_telefono}
+                            onChange={handleChange}
+                            className="w-full"
+                        />
 
-                    <Label>Direccion</Label>
-                    <Input
-                        type="text" placeholder="Direccion"
-                        id="paciente_domicilio"
-                        name="paciente_domicilio"
-                        value={pacienteData.paciente_domicilio}
-                        onChange={handleChange}
-                        className="w-full"
-                    />
+                        <Label>Direccion</Label>
+                        <Input
+                            type="text" placeholder="Direccion"
+                            id="paciente_domicilio"
+                            name="paciente_domicilio"
+                            value={pacienteData.paciente_domicilio}
+                            onChange={handleChange}
+                            className="w-full"
+                        />
 
-
-                    <Button onClick={handleSubmit} className="w-full">Ingresar</Button>
+                        <div className="flex justify-center">
+                            <Button onClick={handleSubmit} className="w-1/3">Agregar Paciente</Button>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </div>  
         </>
     )
 }

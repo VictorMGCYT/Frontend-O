@@ -19,24 +19,14 @@ const items = [
     icon: Home,
   },
   {
-    title: "Mensajes",
-    url: "#",
-    icon: Inbox,
+    title: "Dentistas",
+    url: "/dentist",
+    icon: Home,
   },
   {
-    title: "Calendario",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Buscar",
-    url: "#",
-    icon: Search,
-  },
-  {
-    title: "Ajustes",
-    url: "#",
-    icon: Settings,
+    title: "Pacientes",
+    url: "/paciente",
+    icon: Home,
   },
 ]
 
@@ -45,7 +35,7 @@ export function AppSidebar() {
     <Sidebar variant="inset" className="sm:h-screen">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupLabel>Secciones</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
