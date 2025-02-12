@@ -74,7 +74,7 @@ export default function Registrar() {
                         placeholder="Contraseña"
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <RadioGroup defaultValue="Usuario" className="w-full my-4" onValueChange={setRole}>
+                    <RadioGroup className="w-full my-4" onValueChange={setRole}>
                         <div className="flex items-center space-x-2">
                             <RadioGroupItem value="Usuario" id="Usuario" />
                             <Label htmlFor="Usuario">Usuario</Label>
