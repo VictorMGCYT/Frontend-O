@@ -1,7 +1,12 @@
+"use client";
+import Agregar from "./Agregar";
 
-export default function page() {
+export default function Home() {
     return (
-    <h1>hola paciente</h1>
-  )
-}
+        
+        <>
+            <Agregar></Agregar>
+        </>
 
+    )
+  }
