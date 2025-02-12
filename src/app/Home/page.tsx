@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import AddDentist from "./Home";
 export default function Home({ children }: { children: React.ReactNode }) {
 
     const router = useRouter();
@@ -19,7 +20,7 @@ export default function Home({ children }: { children: React.ReactNode }) {
     return (
         
         <>
-            
+            <AddDentist></AddDentist>
         </>
 
     )

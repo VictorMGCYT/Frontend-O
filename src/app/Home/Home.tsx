@@ -61,7 +61,7 @@ export default function AddDentist() {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen white w-full">
+        <div className="flex justify-center items-center min-h-screen white w-screen">
             <div className="w-full p-8 bg-gray-100 shadow-md rounded-lg">
                 <h1 className="text-2xl font-bold text-center mb-6">Agregar Nuevo Dentista</h1>
                 
