@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import Swal from "sweetalert2";
 
-export default function AddDentist() {
+export default function Agregar() {
     const router = useRouter();
     const url: string | undefined = process.env.NEXT_PUBLIC_API;
 

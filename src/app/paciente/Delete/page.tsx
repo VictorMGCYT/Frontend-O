@@ -1,14 +1,11 @@
 "use client";
-import Agregar from "./Agregar";
+import Eliminar from "./Eliminar";
 
 export default function Home() {
-
- 
     return (
         
         <>
-            <Agregar></Agregar>
+            <Eliminar></Eliminar>
         </>
-
     )
-}
+  }
