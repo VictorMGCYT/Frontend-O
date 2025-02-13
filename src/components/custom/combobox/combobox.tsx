@@ -29,7 +29,7 @@ type Status = {
 }
 
 type ComboBoxProps = {
-  data: Status[];
+  data: any[];
   onChange: (value: string) => void;
   title:string;
   className?:string;
@@ -83,7 +83,6 @@ export function ComboBox({ data, onChange, title, className }: ComboBoxProps) {
 
 function StatusList({
   data,
-  setOpen,
   onSelect,
 }: {
   data: Status[]
@@ -94,7 +93,7 @@ function StatusList({
     <Command>
       <CommandInput placeholder="Filter status..." />
       <CommandList>
-        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandEmpty>No se encontaron resultados.</CommandEmpty>
         <CommandGroup>
           {data.map((status) => (
             <CommandItem
