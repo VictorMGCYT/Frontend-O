@@ -27,11 +27,11 @@ const items = [
     submenu: [
       {
         title: "Agregar Dentista",
-        url: "/Dentist",
+        url: "/dentist/Create",
       },
       {
         title: "Eliminar Dentista",
-        url: "/dentist/list",
+        url: "/dentist/Delete",
       },
     ],
   },
