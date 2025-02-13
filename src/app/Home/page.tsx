@@ -12,7 +12,7 @@ export default function Home({ children }: { children: React.ReactNode }) {
 
         const token = sessionStorage.getItem('token')
         const email = sessionStorage.getItem('user_email')
-
+        
         if(token === null || email === null){
             router.push('/Login')
         }
