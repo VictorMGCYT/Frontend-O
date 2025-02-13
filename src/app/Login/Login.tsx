@@ -13,7 +13,9 @@ export default function Login() {
     const [password, setPassword] = useState('');
 
     const url: string | undefined = process.env.NEXT_PUBLIC_API
-
+    const handleRegistrar = () => {
+        router.push('/Registrar')
+    };
 
     const handleLogin = () => {
 
@@ -81,6 +83,7 @@ export default function Login() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <Button onClick={handleLogin} className="w-full">Ingresar</Button>
+                    <Button onClick={handleRegistrar} className="w-full">Registrarse</Button>
                 </div>
             </div>
         </>
