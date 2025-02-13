@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+
 import { Button } from "@/components/ui/button"
 import {
   Command,
@@ -27,46 +28,38 @@ type Status = {
   label: string
 }
 
-const statuses: Status[] = [
-  {
-    value: "backlog",
-    label: "Backlog",
-  },
-  {
-    value: "todo",
-    label: "Todo",
-  },
-  {
-    value: "in progress",
-    label: "In Progress",
-  },
-  {
-    value: "done",
-    label: "Done",
-  },
-  {
-    value: "canceled",
-    label: "Canceled",
-  },
-]
+type ComboBoxProps = {
+  data: Status[];
+  onChange: (value: string) => void;
+  title:string;
+  className?:string;
+}
 
-export function ComboBoxResponsive() {
+export function ComboBox({ data, onChange, title, className }: ComboBoxProps) {
+
   const [open, setOpen] = React.useState(false)
-  const isDesktop = useIsMobile()
+  const isDesktop = !useIsMobile();
   const [selectedStatus, setSelectedStatus] = React.useState<Status | null>(
     null
   )
+
+  const handleSelect = (value: string) => {
+    const selected = data.find((status) => status.value === value) || null;
+    setSelectedStatus(selected);
+    onChange(value);
+    setOpen(false);
+  };
 
   if (isDesktop) {
     return (
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <Button variant="outline" className="w-[150px] justify-start">
-            {selectedStatus ? <>{selectedStatus.label}</> : <>+ Set status</>}
+          <Button variant="outline" className={`w-[150px] justify-start ${className}`}>
+            {selectedStatus ? <>{selectedStatus.label}</> : `${title}` }
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[200px] p-0" align="start">
-          <StatusList setOpen={setOpen} setSelectedStatus={setSelectedStatus} />
+          <StatusList data={data} setOpen={setOpen} onSelect={handleSelect} />
         </PopoverContent>
       </Popover>
     )
@@ -75,13 +68,13 @@ export function ComboBoxResponsive() {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button variant="outline" className="w-[150px] justify-start">
-          {selectedStatus ? <>{selectedStatus.label}</> : <>+ Set status</>}
+        <Button variant="outline" className={`w-[150px] justify-start ${className}`}>
+          {selectedStatus ? <>{selectedStatus.label}</> : `${title}` }
         </Button>
       </DrawerTrigger>
       <DrawerContent>
         <div className="mt-4 border-t">
-          <StatusList setOpen={setOpen} setSelectedStatus={setSelectedStatus} />
+          <StatusList data={data} setOpen={setOpen} onSelect={handleSelect} />
         </div>
       </DrawerContent>
     </Drawer>
@@ -89,11 +82,13 @@ export function ComboBoxResponsive() {
 }
 
 function StatusList({
+  data,
   setOpen,
-  setSelectedStatus,
+  onSelect,
 }: {
+  data: Status[]
   setOpen: (open: boolean) => void
-  setSelectedStatus: (status: Status | null) => void
+  onSelect: (value: string) => void
 }) {
   return (
     <Command>
@@ -101,16 +96,11 @@ function StatusList({
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup>
-          {statuses.map((status) => (
+          {data.map((status) => (
             <CommandItem
               key={status.value}
               value={status.value}
-              onSelect={(value) => {
-                setSelectedStatus(
-                  statuses.find((priority) => priority.value === value) || null
-                )
-                setOpen(false)
-              }}
+              onSelect={onSelect}
             >
               {status.label}
             </CommandItem>

@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import Swal from "sweetalert2";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { ComboBox } from '../../components/custom/combobox/combobox';
 
 export default function Registrar() {
     const router = useRouter();
@@ -15,12 +16,13 @@ export default function Registrar() {
     const url: string | undefined = process.env.NEXT_PUBLIC_API;
 
     const handleRegistrar = () => {
+        
         const formData = new FormData();
         formData.append('user_email', email);
         formData.append('user_password', password);
         formData.append('user_isActive', 'true');
         formData.append('user_roles', role);
-        fetch(`${url}/auth/Create`, {
+        fetch(`${url}/auth/create`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json'
@@ -52,11 +54,18 @@ export default function Registrar() {
             console.log(error);
         });
     };
+    
+    
+    const statusOptions = [
+        { value: 'active', label: 'Active' },
+        { value: 'inactive', label: 'Inactive' },
+        { value: 'pending', label: 'Pending' }
+    ];
 
     return (
         <>
-            <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-                <h1>HOLAMUNDO</h1>
+            <div className="w-screen flex flex-col items-center justify-center h-screen bg-gray-100">
+                <h1>Registrar Usuario</h1>
                 <div className="w-[300px] lg:w-[400px] border border-gray-300 p-[30px] rounded-md shadow-[10px_10px_30px_rgba(0,0,0,0.6)]">
                     <Label htmlFor="email">Email:</Label>
                     <Input
@@ -74,16 +83,13 @@ export default function Registrar() {
                         placeholder="Contraseña"
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <RadioGroup className="w-full my-4" onValueChange={setRole}>
-                        <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="Usuario" id="Usuario" />
-                            <Label htmlFor="Usuario">Usuario</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="Dentista" id="Dentista" />
-                            <Label htmlFor="Dentista">Dentista</Label>
-                        </div>
-                    </RadioGroup>
+                    <ComboBox
+                        data={statusOptions}
+                        onChange={(value) => setRole(value)} 
+                        title="Selecciona rol"
+                        className="w-full"
+                    ></ComboBox>
+
                     <Button onClick={handleRegistrar} className="w-full mt-4">Registrarse</Button>
                 </div>
             </div>
