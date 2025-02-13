@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import Swal from "sweetalert2";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ComboBox } from '../../components/custom/combobox/combobox';
 
 export default function Registrar() {
@@ -39,7 +38,19 @@ export default function Registrar() {
         .then(data => {
             console.log(data);
             sessionStorage.setItem('user_email', data.user_email);
-            router.push('/Login');
+            sessionStorage.setItem('token', data.token);
+            Swal.fire({
+                toast: true,
+                icon: 'success',
+                title: 'Cuenta Registada',
+                position: 'bottom-start',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true
+            });
+            setTimeout(() => {
+                router.push('Home')
+            }, 1000);
         })
         .catch(error => {
             Swal.fire({
@@ -55,13 +66,10 @@ export default function Registrar() {
         });
     };
     
-    
-    const statusOptions = [
-        { value: 'active', label: 'Active' },
-        { value: 'inactive', label: 'Inactive' },
-        { value: 'pending', label: 'Pending' }
+    const roles = [
+        { value: 'user', label: 'Usuario' },
+        { value: 'dentis', label: 'Dentista' }
     ];
-
     return (
         <>
             <div className="w-screen flex flex-col items-center justify-center h-screen bg-gray-100">
@@ -83,8 +91,9 @@ export default function Registrar() {
                         placeholder="Contraseña"
                         onChange={(e) => setPassword(e.target.value)}
                     />
+                    <Label>Rol</Label>
                     <ComboBox
-                        data={statusOptions}
+                        data={roles}
                         onChange={(value) => setRole(value)} 
                         title="Selecciona rol"
                         className="w-full"
