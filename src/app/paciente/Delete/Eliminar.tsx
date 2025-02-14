@@ -29,7 +29,7 @@ export default function Eliminar() {
             const data = await res.json(); // O usa res.text() si no es JSON
             console.log(data);
 
-            const formattedData = data.map((cosa) => ({
+            const formattedData = data.map((cosa : any) => ({
                 value: cosa.id,
                 label: cosa.nombre,
             }));
