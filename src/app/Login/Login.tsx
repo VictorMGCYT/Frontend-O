@@ -41,7 +41,12 @@ export default function Login() {
                 console.log(data)
                 sessionStorage.setItem('token', data.token)
                 sessionStorage.setItem('user_email', data.user_email)
-                router.push('/Home')
+                sessionStorage.setItem('user_roles', data.user_roles[0])
+
+                const role = (sessionStorage.getItem('user_roles'));
+                if(role === 'creator') router.push('home/creator');
+                if(role === 'user') router.push('home/user');
+                if(role === 'dentis') router.push('home/dentis');
             })
             .catch(error => {
                 Swal.fire({

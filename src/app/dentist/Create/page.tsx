@@ -1,5 +1,6 @@
 "use client";
-import Dentist from "./Dentist";
+
+import Agregar from "./Agregar";
 
 export default function Home() {
 
@@ -7,7 +8,7 @@ export default function Home() {
     return (
         
         <>
-            <Dentist></Dentist>
+            <Agregar></Agregar>
         </>
 
     )
