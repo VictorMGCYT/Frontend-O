@@ -49,14 +49,6 @@ export default function Eliminar() {
 
     }
 
-    const roles = [
-        {
-            value: 'user'
-            , label: 'Usuario'
-        },
-        { value: 'dentis', label: 'Dentista' }
-    ];
-
     return (
         <div className="flex justify-center items-center min-h-screen white w-screen">
             <div className="w-full p-8 bg-gray-100 shadow-md rounded-lg">

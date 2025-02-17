@@ -12,6 +12,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { title } from "process";
+import { url } from "inspector";
 
 // Menu items.
 const items = [
@@ -48,6 +50,10 @@ const items = [
         title: "Eliminar Paciente",
         url: "/paciente/Delete",
       },
+      {
+        title: "Editar Paciente",
+        url: "/paciente/Edit",
+      }
     ],
   },
 ];
