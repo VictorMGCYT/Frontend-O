@@ -63,8 +63,8 @@ export default function Agregar() {
 
     return (
         <>
-            <div className="flex justify-center items-center min-h-screen white w-screen">
-                <div className="w-full p-8 bg-gray-100 shadow-md rounded-lg">
+            <div className="w-screen flex flex-col items-center justify-center h-screen bg-gray-100">
+                <div className="w-[300px] lg:w-[400px] border border-gray-300 p-[30px] rounded-md shadow-[10px_10px_30px_rgba(0,0,0,0.6)]">
                     <h1 className="text-2xl font-bold text-center mb-6">Agregar Paciente</h1>
                     <div className="space-y-5">
                         <Label>Nombres</Label>
