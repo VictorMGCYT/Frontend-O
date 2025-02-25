@@ -17,6 +17,35 @@ export default function Page() {
         <TableCell className="text-right">{paciente.estado}</TableCell>
     </TableRow>
 ))}*/
+
+const router = useRouter();
+const url: string | undefined = process.env.NEXT_PUBLIC_API;
+
+const token = sessionStorage.getItem('token');
+const [pacienteData, setPacienteData] = useState({
+    paciente_nombres: "",
+    paciente_apellidos: "",
+    paciente_telefono: "",
+    paciente_domicilio: "",
+});
+    const handleSubmit = () => {
+        fetch(`${url}/paciente/get`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${token}`
+
+            },
+            body: JSON.stringify(pacienteData),
+        })
+                    .catch((error) => {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: error.message,
+                        });
+                    });
+    }
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
             <h1 className="text-4xl font-bold mb-4">DethCare</h1>
