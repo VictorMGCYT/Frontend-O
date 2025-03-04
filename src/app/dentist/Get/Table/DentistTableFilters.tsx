@@ -64,7 +64,6 @@ const DentistFilters: React.FC<DentistTableFiltersProps> = ({
           onChange={(event) => setCreacion(event.target.value)}
           onEnter={() => updateQueryParams({ creacion, offset: "0" })}
           className="w-30"
-
         />
       </div>
     </div>
