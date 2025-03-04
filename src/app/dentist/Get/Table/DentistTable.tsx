@@ -68,7 +68,6 @@ export default function DentistTable() {
         setIsLoading(false);
       });
 
-    console.log(data);
   }, [searchParams, tableActionUsed]);
 
   const columns = getColumnsDentist();

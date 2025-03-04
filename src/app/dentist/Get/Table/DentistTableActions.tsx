@@ -4,23 +4,22 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { MoreHorizontal } from 'lucide-react';
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { deletedPet } from "./deletedDentist";
 import useTableStore from "@/stores/table-store";
 import AlertDialogTable from "@/components/custom/table/AlertDialogTable";
+import { deleteDentist } from "./deleteDentist";
 
 export default function DentistTableActions({ dentista }: { dentista: any }) {
 
   const { setTableActionUsed, tableActionUsed } = useTableStore();
   const router = useRouter();
- 
+
   const handleDelete = async () => {
     try {
-      await deletedPet(dentista.dentista_id);
+      await deleteDentist(dentista.dentista_id);
       toast.success('Paciente deliminado corrrectamente');
       setTableActionUsed(!tableActionUsed);
     } catch (error: any) {
-
-      if (error.message.includes('usuario con roles')) toast.error('No tienens acceso para eliminar');
+      toast.error('Error:No tienens acceso para eliminar');
     }
   };
 
@@ -53,14 +52,14 @@ export default function DentistTableActions({ dentista }: { dentista: any }) {
 
         <DropdownMenuSeparator /> */}
 
-        
+
         <DropdownMenuSeparator />
 
         <AlertDialogTable
           alertAction={handleDelete}
-          title={'Eliminar dentista'}
-          description={'Estas seguro que quiores elimnar este dentista?'}
-          cancel={'cancelar'}
+          title={'Eliminar Dentista'}
+          description={'¿Estás seguro de que deseas eliminar a este dentista?'}
+          cancel={'Cancelar'}
           continueText={'Continuar'}
           textAction={'Eliminar'}
         />
