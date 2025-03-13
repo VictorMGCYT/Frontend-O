@@ -4,15 +4,15 @@ import { ArrowUpDown } from 'lucide-react';
 import { useIsMobile } from "@/hooks/use-mobile";
 import HeaderTitle from "@/components/custom/table/HeaderColum";
 import { getNavigatorLanguage } from "@/app/helpers/getNavigatorLanguage";
-import DentistTableActions from "./DentistTableActions";
+import DentistTableActions from "./PacienteTableActions";
 
 export type Dentist = {
-  dentista_id: number;
-  dentista_nombre: string;
-  dentista_domicilio: string;
-  dentista_telefono: string;
-  dentista_cedula: string;
-  dentista_creacion: string;
+  paciente_id: number;
+  paciente_nombres: string;
+  paciente_apellidos: string;
+  paciente_telefono: string;
+  paciente_domicilio: string;
+  paciente_creacion: string;
 };
 
 export const getColumnsDentist = (): ColumnDef<Dentist>[] => {
@@ -26,7 +26,7 @@ export const getColumnsDentist = (): ColumnDef<Dentist>[] => {
       cell: ({ row }) => <DentistTableActions dentista={row.original} />,
     },
     {
-      accessorKey: "dentista_nombre",
+      accessorKey: "paciente_nombres",
       header: ({ column }) => (
         <Button
           variant="ghost"
@@ -36,7 +36,20 @@ export const getColumnsDentist = (): ColumnDef<Dentist>[] => {
           <ArrowUpDown />
         </Button>
       ),
-      cell: ({ row }) => <div className="lowercase">{row.getValue("dentista_nombre")}</div>,
+      cell: ({ row }) => <div className="lowercase">{row.getValue("paciente_nombres")}</div>,
+    },
+    {
+      accessorKey: "paciente_apellidos",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          <HeaderTitle text="Apellidos" />
+          <ArrowUpDown />
+        </Button>
+      ),
+      cell: ({ row }) => <div className="lowercase">{row.getValue("paciente_apellidos")}</div>,
     },
     
   ];
@@ -44,22 +57,17 @@ export const getColumnsDentist = (): ColumnDef<Dentist>[] => {
   if (!isMobile) {
     columns.push(
       {
-        accessorKey: "dentista_telefono",
+        accessorKey: "paciente_telefono",
         header: () => <HeaderTitle text="Teléfono" />,
-        cell: ({ row }) => <div>{row.getValue("dentista_telefono")}</div>,
+        cell: ({ row }) => <div>{row.getValue("paciente_telefono")}</div>,
       },
       {
-        accessorKey: "dentista_domicilio",
+        accessorKey: "paciente_domicilio",
         header: () => <HeaderTitle text="Domicilio" />,
-        cell: ({ row }) => <div>{row.getValue("dentista_domicilio")}</div>,
+        cell: ({ row }) => <div>{row.getValue("paciente_domicilio")}</div>,
       },
       {
-        accessorKey: "dentista_cedula",
-        header: () => <HeaderTitle text="Cédula" />,
-        cell: ({ row }) => <div>{row.getValue("dentista_cedula")}</div>,
-      },
-      {
-        accessorKey: "dentista_creacion",
+        accessorKey: "paciente_creacion",
         header: ({ column }) => (
           <Button
             variant="ghost"
@@ -70,7 +78,7 @@ export const getColumnsDentist = (): ColumnDef<Dentist>[] => {
           </Button>
         ),
         cell: ({ row }) => {
-          const date = new Date(row.getValue("dentista_creacion"));
+          const date = new Date(row.getValue("paciente_creacion"));
           const formattedDate = getNavigatorLanguage(date);
           return <div>{formattedDate}</div>;
         },

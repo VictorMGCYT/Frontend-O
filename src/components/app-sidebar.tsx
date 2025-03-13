@@ -24,18 +24,9 @@ const items = [
   },
   {
     title: "Dentistas",
-    //url: "/Home",
-    //icon: Home,
-    submenu: [
-      {
-        title: "Agregar Dentista",
-        url: "/dentist/Create",
-      },
-      {
-        title: "Eliminar Dentista",
-        url: "/dentist/Delete",
-      },
-    ],
+    url: "/dentist/Get",
+    icon: Home,
+    
   },
   {
     title: "Pacientes",
