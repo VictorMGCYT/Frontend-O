@@ -14,8 +14,8 @@ export default function Eliminar() {
     const [role, setRole] = useState('');
     const token = sessionStorage.getItem('token');
 
-    const [nombre, setNombre] = useState([])
-    const [id, setId] = useState([])
+    const [nombre, setNombre] = useState([''])
+    const [id, setId] = useState([''])
 
     async function getData() {
         try {
@@ -46,9 +46,10 @@ export default function Eliminar() {
     }, [])
 
     const handleSubmit = () => {
-
+        
     }
 
+    
     return (
         <div className="flex justify-center items-center min-h-screen white w-screen">
             <div className="w-[300px] lg:w-[400px] border border-gray-300 p-[30px] rounded-md shadow-[10px_10px_30px_rgba(0,0,0,0.6)]">
@@ -59,7 +60,7 @@ export default function Eliminar() {
                         onChange={(value) => setRole(value)}
                         title="Selecciona un paciente"
                         className="w-full"
-                    ></ComboBox>
+                    />
 
                     <div className="flex justify-center">
                         <Button onClick={handleSubmit} className="w-1/3">Eliminar Paciente</Button>

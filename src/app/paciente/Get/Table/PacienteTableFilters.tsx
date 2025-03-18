@@ -1,45 +1,68 @@
 import { FilterInput } from "@/components/custom/table/FilterInput";
 import { Button } from "@/components/ui/button";
+import AlertDialogTable from "@/components/custom/table/AlertDialogTable";
 
 interface DentistTableFiltersProps {
-  dentista: string;
-  setDentista: React.Dispatch<React.SetStateAction<string>>;
+  paciente: string;
+  setPaciente: React.Dispatch<React.SetStateAction<string>>;
+  apellidos: string;
+  setApellidos: React.Dispatch<React.SetStateAction<string>>;
   telefono: string;
   setTelefono: React.Dispatch<React.SetStateAction<string>>;
   domicilio: string;
   setDomicilio: React.Dispatch<React.SetStateAction<string>>;
-  cedula: string;
-  setCedula: React.Dispatch<React.SetStateAction<string>>;
   creacion: string;
   setCreacion: React.Dispatch<React.SetStateAction<string>>;
   updateQueryParams: (updates: Record<string, string>) => void;
 }
 
+const handleRealizar = async() =>{
+
+}
+
 const handleAgregar = async () => {
 
-};
+  <AlertDialogTable
+          alertAction={handleRealizar}
+          title={'Eliminar Dentista'}
+          description={'¿Estás seguro de que deseas eliminar a este dentista?'}
+          cancel={'Cancelar'}
+          continueText={'Continuar'}
+          textAction={'Eliminar'}
+        />
+}
+//E:\UNIVERSIDAD\OCTAVO SEMESTRE\Nueva carpeta\Dentista\Front-end\Frontend-O\src\app\paciente\paciente.tsx
+
 
 const DentistFilters: React.FC<DentistTableFiltersProps> = ({
-  dentista,
-  setDentista,
+  paciente,
+  setPaciente,
+  apellidos,
+  setApellidos,
   telefono,
   setTelefono,
   domicilio,
   setDomicilio,
-  cedula,
-  setCedula,
   creacion,
   setCreacion,
   updateQueryParams,
+
 }) => {
   return (
     <div className="flex items-center py-4">
       <div className="flex justify-center gap-12 flex-wrap w-full">
         <FilterInput
-          placeholder="Dentista"
-          value={dentista}
-          onChange={(event) => setDentista(event.target.value)}
-          onEnter={() => updateQueryParams({ dentista, offset: "0" })}
+          placeholder="Nombres"
+          value={paciente}
+          onChange={(event) => setPaciente(event.target.value)}
+          onEnter={() => updateQueryParams({ paciente, offset: "0" })}
+          className="w-30"
+        />
+        <FilterInput
+          placeholder="Apellidos"
+          value={apellidos}
+          onChange={(event) => setApellidos(event.target.value)}
+          onEnter={() => updateQueryParams({ apellidos, offset: "0" })}
           className="w-30"
         />
         <FilterInput
@@ -57,13 +80,6 @@ const DentistFilters: React.FC<DentistTableFiltersProps> = ({
           className="w-30"
         />
         <FilterInput
-          placeholder="Cédula"
-          value={cedula}
-          onChange={(event) => setCedula(event.target.value)}
-          onEnter={() => updateQueryParams({ cedula, offset: "0" })}
-          className="w-30"
-        />
-        <FilterInput
           placeholder="Creación"
           value={creacion}
           onChange={(event) => setCreacion(event.target.value)}
@@ -71,7 +87,7 @@ const DentistFilters: React.FC<DentistTableFiltersProps> = ({
           className="w-30"
         />
 
-        <Button onClick={handleAgregar} className="">Agregar Dentista</Button>
+        <Button onClick={handleAgregar} className="">Agregar Paciente</Button>
       </div>
     </div>
   );
