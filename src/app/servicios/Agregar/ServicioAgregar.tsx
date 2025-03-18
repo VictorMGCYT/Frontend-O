@@ -23,10 +23,12 @@ export default function ServicioAgregar() {
         setPacienteData({
             ...pacienteData,
             [e.target.name]: e.target.value,
-            
         });
 
+        console.log(pacienteData)
     };
+
+    
 
     const handleSubmit = () => {
         fetch(`${url}/servicios/create`, {
@@ -85,7 +87,7 @@ export default function ServicioAgregar() {
                             type="text" placeholder="Precio"
                             id="servicio_precio"
                             name="servicio_precio"
-                            value={ (pacienteData.servicio_precio) }
+                            value={ (+pacienteData.servicio_precio) }
                             onChange={handleChange}
                             className="w-full"
                         />
