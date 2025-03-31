@@ -1,11 +1,11 @@
 import { getToken } from "@/app/helpers/getToken";
 import { NEXT_PUBLIC_API } from "@/config/envs.config";
 
-export const deleteDentist = async (dentisId: string) => {
+export const deletePaciente = async (pacienteId: string) => {
   const { token } = await getToken();
 
   try {
-    const response = await fetch(`${NEXT_PUBLIC_API}/paciente/delete/${dentisId}`, {
+    const response = await fetch(`${NEXT_PUBLIC_API}/paciente/delete/${pacienteId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

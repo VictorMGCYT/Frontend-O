@@ -23,7 +23,7 @@ export const getColumnsDentist = (): ColumnDef<Dentist>[] => {
       header: () => <HeaderTitle text="Acciones" />,
       id: "actions",
       enableHiding: false,
-      cell: ({ row }) => <DentistTableActions dentista={row.original} />,
+      cell: ({ row }) => <DentistTableActions paciente={row.original} />,
     },
     {
       accessorKey: "paciente_nombres",

@@ -6,72 +6,147 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import useTableStore from "@/stores/table-store";
 import AlertDialogTable from "@/components/custom/table/AlertDialogTable";
-import { deleteDentist } from "./deletePaciente";
+import { deletePaciente } from "./deletePaciente";
+import { updatePaciente } from "./updatePaciente";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
-export default function DentistTableActions({ dentista }: { dentista: any }) {
-
+export default function PacienteTableActions({ paciente }: { paciente: any }) {
   const { setTableActionUsed, tableActionUsed } = useTableStore();
   const router = useRouter();
+  const [formData, setFormData] = useState({
+    paciente_nombres: paciente.paciente_nombres || '',
+    paciente_apellidos: paciente.paciente_apellidos || '',
+    paciente_telefono: paciente.paciente_telefono || '',
+    paciente_domicilio: paciente.paciente_domicilio || ''
+  });
+  const [open, setOpen] = useState(false);
 
   const handleDelete = async () => {
     try {
-      await deleteDentist(dentista.dentista_id);
-      toast.success('Paciente deliminado corrrectamente');
+      await deletePaciente(paciente.paciente_id);
+      toast.success('Paciente eliminado correctamente');
       setTableActionUsed(!tableActionUsed);
     } catch (error: any) {
-      toast.error('Error:No tienens acceso para eliminar');
+      toast.error('Error: No tienes acceso para eliminar');
     }
   };
 
-  const handleAgregar = async () => {
+  const handleUpdate = async () => {
+    try {
+      await updatePaciente(paciente.paciente_id, formData);
+      toast.success('Paciente actualizado correctamente');
+      setTableActionUsed(!tableActionUsed);
+      setOpen(false);
+    } catch (error) {
+      toast.error('Error al actualizar el paciente');
+    }
+  };
 
-  }
-
-  //TODO:Arreglar esto de dentista
-  // const handleModify = () => {
-  //   saveTableId(pet.pet_id);
-  //   router.replace('modify');
-
-  // };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   return (
-
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-
         <Button variant="ghost" className="h-8 w-8 p-0">
           <span className="sr-only">Open menu</span>
           <MoreHorizontal />
         </Button>
-
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>{'Acciones'}</DropdownMenuLabel>
+        <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+        <DropdownMenuSeparator />
 
-        {/* <DropdownMenuItem
-          onClick={handleModify}
-        >
-         {'Modificar'}
-        </DropdownMenuItem>
-
-        <DropdownMenuSeparator /> */}
-
+        {/* Diálogo para actualizar paciente */}
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger asChild>
+            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+              Actualizar
+            </DropdownMenuItem>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Actualizar Paciente</DialogTitle>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="paciente_nombres" className="text-right">
+                  Nombres
+                </Label>
+                <Input
+                  id="paciente_nombres"
+                  name="paciente_nombres"
+                  value={formData.paciente_nombres}
+                  onChange={handleChange}
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="paciente_apellidos" className="text-right">
+                  Apellidos
+                </Label>
+                <Input
+                  id="paciente_apellidos"
+                  name="paciente_apellidos"
+                  value={formData.paciente_apellidos}
+                  onChange={handleChange}
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="paciente_telefono" className="text-right">
+                  Teléfono
+                </Label>
+                <Input
+                  id="paciente_telefono"
+                  name="paciente_telefono"
+                  value={formData.paciente_telefono}
+                  onChange={handleChange}
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="paciente_domicilio" className="text-right">
+                  Domicilio
+                </Label>
+                <Input
+                  id="paciente_domicilio"
+                  name="paciente_domicilio"
+                  value={formData.paciente_domicilio}
+                  onChange={handleChange}
+                  className="col-span-3"
+                />
+              </div>
+            </div>
+            <div className="flex justify-end gap-2">
+              <Button variant="outline" onClick={() => setOpen(false)}>
+                Cancelar
+              </Button>
+              <Button onClick={handleUpdate}>Guardar cambios</Button>
+            </div>
+          </DialogContent>
+        </Dialog>
 
         <DropdownMenuSeparator />
 
         <AlertDialogTable
           alertAction={handleDelete}
-          title={'Actualizar Paciente'}
-          description={'¿Estás seguro de que deseas eliminar a este dentista?'}
-          cancel={'Cancelar'}
-          continueText={'Continuar'}
-          textAction={'Actualizar'}
-        />
-
-        <AlertDialogTable
-          alertAction={handleDelete}
-          title={'Eliminar Dentista'}
-          description={'¿Estás seguro de que deseas eliminar a este dentista?'}
+          title={'Eliminar Paciente'}
+          description={'¿Estás seguro de que deseas eliminar a este paciente?'}
           cancel={'Cancelar'}
           continueText={'Continuar'}
           textAction={'Eliminar'}

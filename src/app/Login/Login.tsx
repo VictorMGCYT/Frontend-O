@@ -46,7 +46,7 @@ export default function Login() {
                 const role = (sessionStorage.getItem('user_roles'));
                 if(role === 'creator') router.push('Home');
                 if(role === 'user') router.push('Home');
-                if(role === 'dentis') router.push('Home');
+                if(role === 'dentist') router.push('Home');
             })
             .catch(error => {
                 Swal.fire({
