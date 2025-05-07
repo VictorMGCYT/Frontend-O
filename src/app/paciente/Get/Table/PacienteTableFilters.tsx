@@ -1,6 +1,10 @@
-import { FilterInput } from "@/components/custom/table/FilterInput";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import AlertDialogTable from "@/components/custom/table/AlertDialogTable";
+import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { FilterInput } from "@/components/custom/table/FilterInput";
+import Swal from "sweetalert2";
+import { Label } from "@/components/ui/label";
 
 interface DentistTableFiltersProps {
   paciente: string;
@@ -16,25 +20,7 @@ interface DentistTableFiltersProps {
   updateQueryParams: (updates: Record<string, string>) => void;
 }
 
-const handleRealizar = async() =>{
-
-}
-
-const handleAgregar = async () => {
-
-  <AlertDialogTable
-          alertAction={handleRealizar}
-          title={'Eliminar Dentista'}
-          description={'¿Estás seguro de que deseas eliminar a este dentista?'}
-          cancel={'Cancelar'}
-          continueText={'Continuar'}
-          textAction={'Eliminar'}
-        />
-}
-//E:\UNIVERSIDAD\OCTAVO SEMESTRE\Nueva carpeta\Dentista\Front-end\Frontend-O\src\app\paciente\paciente.tsx
-
-
-const DentistFilters: React.FC<DentistTableFiltersProps> = ({
+export default function DentistFilters({
   paciente,
   setPaciente,
   apellidos,
@@ -46,8 +32,67 @@ const DentistFilters: React.FC<DentistTableFiltersProps> = ({
   creacion,
   setCreacion,
   updateQueryParams,
+}: DentistTableFiltersProps) {
 
-}) => {
+  const [open, setOpen] = useState(false);
+  const [formData, setFormData] = useState({ nombres: "", apellidos: "", telefono: "", domicilio: "" });
+
+  const url: string | undefined = process.env.NEXT_PUBLIC_API;
+
+  const token = sessionStorage.getItem('token');
+  const [pacienteData, setPacienteData] = useState({
+    paciente_nombres: "",
+    paciente_apellidos: "",
+    paciente_telefono: "",
+    paciente_domicilio: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPacienteData({
+      ...pacienteData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSave = () => {
+
+    fetch(`${url}/paciente/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`
+
+      },
+      body: JSON.stringify(pacienteData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error al agregar paciente");
+        }
+        console.log(response.json())
+        return response.json();
+      })
+      .then((data) => {
+        Swal.fire({
+          icon: "success",
+          title: "Paciente agregado",
+          text: "El paciente ha sido registrado correctamente",
+          timer: 3000,
+        });
+
+
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.message,
+        });
+      });
+
+    setOpen(false);
+  };
+
   return (
     <div className="flex items-center py-4">
       <div className="flex justify-center gap-12 flex-wrap w-full">
@@ -87,10 +132,61 @@ const DentistFilters: React.FC<DentistTableFiltersProps> = ({
           className="w-30"
         />
 
-        <Button onClick={handleAgregar} className="">Agregar Paciente</Button>
+        <Button onClick={() => setOpen(true)}>Agregar Paciente</Button>
       </div>
+
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Agregar Nuevo Paciente</DialogTitle>
+          </DialogHeader>
+          <Label>Nombres</Label>
+          <Input
+            type="text" placeholder="Nombre"
+            id="paciente_nombres"
+            name="paciente_nombres"
+            value={pacienteData.paciente_nombres}
+            onChange={handleChange}
+            className="w-full"
+          />
+
+          <Label>Apellidos</Label>
+          <Input
+            type="text" placeholder="Apellido"
+            id="paciente_apellidos"
+            name="paciente_apellidos"
+            value={pacienteData.paciente_apellidos}
+            onChange={handleChange}
+            className="w-full"
+          />
+
+          <Label>Telefono</Label>
+          <Input
+            type="text" placeholder="Telefono"
+            id="paciente_telefono"
+            name="paciente_telefono"
+            value={pacienteData.paciente_telefono}
+            onChange={handleChange}
+            className="w-full"
+          />
+
+          <Label>Direccion</Label>
+          <Input
+            type="text" placeholder="Direccion"
+            id="paciente_domicilio"
+            name="paciente_domicilio"
+            value={pacienteData.paciente_domicilio}
+            onChange={handleChange}
+            className="w-full"
+          />
+          <div className="flex justify-end gap-2 mt-4">
+            <Button onClick={() => setOpen(false)}>Cancelar</Button>
+            <Button onClick={handleSave}>Guardar</Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+
     </div>
   );
 };
-
-export default DentistFilters;

@@ -4,8 +4,10 @@ import { NEXT_PUBLIC_API } from "@/config/envs.config";
 export const deleteServicio = async (servicioID: string) => {
   const { token } = await getToken();
 
+  console.log("Token de dentitsa " + {token});
+
   try {
-    const response = await fetch(`${NEXT_PUBLIC_API}/servicio/delete/${servicioID}`, {
+    const response = await fetch(`${NEXT_PUBLIC_API}/Servicios/Delete/${servicioID}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
