@@ -111,7 +111,7 @@ export default function DentistTable() {
           limit={limit}
           updateQueryParams={updateQueryParams}
           resetInputs={resetInputs}
-          exportToCSV={() => exportToCSV(data, 'Dentistas')}
+          exportToCSV={() => exportToCSV(data, 'Pacientes')}
         />
       </div>
     </PageContainer>
