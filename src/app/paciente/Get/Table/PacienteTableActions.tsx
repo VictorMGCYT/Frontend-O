@@ -18,18 +18,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { useState } from "react";
 
 export default function PacienteTableActions({ paciente }: { paciente: any }) {
   const { setTableActionUsed, tableActionUsed } = useTableStore();
   const router = useRouter();
   const [formData, setFormData] = useState({
-    paciente_nombres: paciente.paciente_nombres || '',
-    paciente_apellidos: paciente.paciente_apellidos || '',
-    paciente_telefono: paciente.paciente_telefono || '',
-    paciente_domicilio: paciente.paciente_domicilio || ''
+    paciente_nombres: paciente.paciente_nombres || "",
+    paciente_apellidos: paciente.paciente_apellidos || "",
+    paciente_telefono: paciente.paciente_telefono || 0,
+    paciente_domicilio: paciente.paciente_domicilio || ""
   });
   const [open, setOpen] = useState(false);
 
@@ -58,7 +55,7 @@ export default function PacienteTableActions({ paciente }: { paciente: any }) {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: name === "paciente_telefono" ? Number(value) : value
     }));
   };
 
@@ -67,7 +64,7 @@ export default function PacienteTableActions({ paciente }: { paciente: any }) {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="h-8 w-8 p-0">
           <span className="sr-only">Open menu</span>
-          <MoreHorizontal />
+          <MoreHorizontal className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
@@ -117,6 +114,7 @@ export default function PacienteTableActions({ paciente }: { paciente: any }) {
                 <Input
                   id="paciente_telefono"
                   name="paciente_telefono"
+                  type="number"
                   value={formData.paciente_telefono}
                   onChange={handleChange}
                   className="col-span-3"
@@ -152,62 +150,8 @@ export default function PacienteTableActions({ paciente }: { paciente: any }) {
           description={'¿Estás seguro de que deseas eliminar a este paciente?'}
           cancel={'Cancelar'}
           continueText={'Continuar'}
-          textAction={'Actualizar'}
+          textAction={'Eliminar'}
         />
-
-        <Button variant="ghost" className="h-8 w-8 p-0" onClick={() => setOpen(true)}> Hola 2</Button>
-
-        <Dialog open={open} onOpenChange={setOpen}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Editar Paciente</DialogTitle>
-            </DialogHeader>
-            <Label>Nombres</Label>
-            <Input
-              type="text" placeholder="Nombre"
-              id="paciente_nombres"
-              name="paciente_nombres"
-              value={pacienteData.paciente_nombres}
-              onChange={handleChange}
-              className="w-full"
-            />
-
-            <Label>Apellidos</Label>
-            <Input
-              type="text" placeholder="Apellido"
-              id="paciente_apellidos"
-              name="paciente_apellidos"
-              value={pacienteData.paciente_apellidos}
-              onChange={handleChange}
-              className="w-full"
-            />
-
-            <Label>Telefono</Label>
-            <Input
-              type="text" placeholder="Telefono"
-              id="paciente_telefono"
-              name="paciente_telefono"
-              value={pacienteData.paciente_telefono}
-              onChange={handleChange}
-              className="w-full"
-            />
-
-            <Label>Direccion</Label>
-            <Input
-              type="text" placeholder="Direccion"
-              id="paciente_domicilio"
-              name="paciente_domicilio"
-              value={pacienteData.paciente_domicilio}
-              onChange={handleChange}
-              className="w-full"
-            />
-            <div className="flex justify-end gap-2 mt-4">
-              <Button onClick={() => setOpen(false)}>Cancelar</Button>
-              <Button onClick={handleActualizar}>Guardar</Button>
-            </div>
-          </DialogContent>
-        </Dialog>
-
       </DropdownMenuContent>
     </DropdownMenu>
   );
