@@ -18,6 +18,12 @@ export const getColumnsServicio = (): ColumnDef<Servicio>[] => {
 
   const columns: ColumnDef<Servicio>[] = [
     {
+      header: () => <HeaderTitle text="Acciones" />,
+      id: "actions",
+      enableHiding: false,
+      cell: ({ row }) => <DentistTableActions servicio={row.original} />,
+    },
+    {
       accessorKey: "servicio_nombre",
       header: ({ column }) => (
         <Button
@@ -29,12 +35,6 @@ export const getColumnsServicio = (): ColumnDef<Servicio>[] => {
         </Button>
       ),
       cell: ({ row }) => <div className="lowercase">{row.getValue("servicio_nombre")}</div>,
-    },
-    {
-      header: () => <HeaderTitle text="Acciones" />,
-      id: "actions",
-      enableHiding: false,
-      cell: ({ row }) => <DentistTableActions servicio={row.original} />,
     },
   ];
 

@@ -8,15 +8,13 @@ import Swal from "sweetalert2";
 
 
 export default function ServicioAgregar() {
-
-    //TODO: fix this form
     const router = useRouter();
     const url: string | undefined = process.env.NEXT_PUBLIC_API;
 
     const token = sessionStorage.getItem('token');
     const [pacienteData, setPacienteData] = useState({
         servicio_nombre:"",
-        servicio_precio:0,
+        servicio_precio: 0.0
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +52,7 @@ export default function ServicioAgregar() {
                     text: "El servicio ha sido registrado correctamente",
                     timer: 3000,
                 });
-                router.push("/servicios");
+                //router.push("/servicios");
             })
             .catch((error) => {
                 console.log(error)

@@ -24,28 +24,19 @@ const items = [
   },
   {
     title: "Dentistas",
-    url: "/dentist/Get",
+    url: "/Dentist/Get",
     icon: Home,
     
   },
   {
     title: "Pacientes",
-    //url: "/Home",
-    //icon: Home,
-    submenu: [
-      {
-        title: "Agregar Paciente",
-        url: "/paciente/Create",
-      },
-      {
-        title: "Eliminar Paciente",
-        url: "/paciente/Delete",
-      },
-      {
-        title: "Editar Paciente",
-        url: "/paciente/Edit",
-      }
-    ],
+    url: "/paciente/Get",
+    icon: Home,
+  },
+  {
+    title: "Servicios",
+    url: "/servicios/Agregar/Get",
+    icon: Home,
   },
 ];
 
@@ -64,31 +55,18 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Secciones</SidebarGroupLabel>
-          <SidebarGroupContent>
+          <SidebarGroupContent> 
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <div onClick={() => item.submenu && toggleSubmenu(item.title)}>
+                    <div onClick={() => item && toggleSubmenu(item.title)}>
                       <a href={item.url}>
                         
                         <span>{item.title}</span>
                       </a>
                     </div>
                   </SidebarMenuButton>
-                  {item.submenu && openSubmenus[item.title] && (
-                    <SidebarMenu>
-                      {item.submenu.map((subitem) => (
-                        <SidebarMenuItem key={subitem.title}>
-                          <SidebarMenuButton asChild>
-                            <a href={subitem.url}>
-                              <span>{subitem.title}</span>
-                            </a>
-                          </SidebarMenuButton>
-                        </SidebarMenuItem>
-                      ))}
-                    </SidebarMenu>
-                  )}
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
