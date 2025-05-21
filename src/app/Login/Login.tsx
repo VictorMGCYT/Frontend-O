@@ -87,8 +87,11 @@ export default function Login() {
                         placeholder="Contraseña" 
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <Button onClick={handleLogin} className="w-full">Ingresar</Button>
-                    <Button onClick={handleRegistrar} className="w-full">Registrarse</Button>
+                    <Button variant="blue" onClick={handleLogin} className="mb-[20px] w-full">Ingresar</Button>
+
+                    <br></br>
+
+                    <Button variant="red" onClick={handleRegistrar} className="w-full">Registrarse</Button>
                 </div>
             </div>
         </>

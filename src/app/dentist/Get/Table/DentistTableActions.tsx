@@ -143,10 +143,10 @@ export default function DentistTableActions({ dentista }: { dentista: any }) {
               </div>
             </div>
             <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={() => setOpen(false)}>
+              <Button variant="red" onClick={() => setOpen(false)}>
                 Cancelar
               </Button>
-              <Button onClick={handleUpdate}>Guardar cambios</Button>
+              <Button variant={"blue"} onClick={handleUpdate}>Guardar cambios</Button>
             </div>
           </DialogContent>
         </Dialog>

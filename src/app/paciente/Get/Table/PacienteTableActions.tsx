@@ -25,19 +25,29 @@ export default function PacienteTableActions({ paciente }: { paciente: any }) {
   const [formData, setFormData] = useState({
     paciente_nombres: paciente.paciente_nombres || "",
     paciente_apellidos: paciente.paciente_apellidos || "",
-    paciente_telefono: paciente.paciente_telefono || 0,
+    paciente_telefono: paciente.paciente_telefono || "",
     paciente_domicilio: paciente.paciente_domicilio || ""
   });
   const [open, setOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const handleDelete = async () => {
+    setIsDeleting(true);
     try {
       await deletePaciente(paciente.paciente_id);
       toast.success('Paciente eliminado correctamente');
       setTableActionUsed(!tableActionUsed);
     } catch (error: any) {
-      toast.error('Error: No tienes acceso para eliminar');
+      console.error('Error eliminando paciente:', error);
+      toast.error(error?.message || 'Error: No tienes acceso para eliminar');
+    } finally {
+      setIsDeleting(false);
     }
+  };
+
+  const handleModify = () => {
+    sessionStorage.setItem('paciente_id', paciente.paciente_id);
+    router.push(`/paciente/modify/${paciente.paciente_id}`);
   };
 
   const handleUpdate = async () => {
@@ -46,8 +56,9 @@ export default function PacienteTableActions({ paciente }: { paciente: any }) {
       toast.success('Paciente actualizado correctamente');
       setTableActionUsed(!tableActionUsed);
       setOpen(false);
-    } catch (error) {
-      toast.error('Error al actualizar el paciente');
+    } catch (error: any) {
+      console.error('Error actualizando paciente:', error);
+      toast.error(error?.message || 'Error al actualizar el paciente');
     }
   };
 
@@ -55,7 +66,7 @@ export default function PacienteTableActions({ paciente }: { paciente: any }) {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: name === "paciente_telefono" ? Number(value) : value
+      [name]: value
     }));
   };
 
@@ -114,7 +125,7 @@ export default function PacienteTableActions({ paciente }: { paciente: any }) {
                 <Input
                   id="paciente_telefono"
                   name="paciente_telefono"
-                  type="number"
+                  type="tel"
                   value={formData.paciente_telefono}
                   onChange={handleChange}
                   className="col-span-3"
@@ -134,10 +145,10 @@ export default function PacienteTableActions({ paciente }: { paciente: any }) {
               </div>
             </div>
             <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={() => setOpen(false)}>
+              <Button variant="red" onClick={() => setOpen(false)}>
                 Cancelar
               </Button>
-              <Button onClick={handleUpdate}>Guardar cambios</Button>
+              <Button variant="blue" onClick={handleUpdate}>Guardar cambios</Button>
             </div>
           </DialogContent>
         </Dialog>
@@ -149,8 +160,8 @@ export default function PacienteTableActions({ paciente }: { paciente: any }) {
           title={'Eliminar Paciente'}
           description={'¿Estás seguro de que deseas eliminar a este paciente?'}
           cancel={'Cancelar'}
-          continueText={'Continuar'}
-          textAction={'Eliminar'}
+          continueText={isDeleting ? 'Eliminando...' : 'Continuar'}
+          textAction={isDeleting ? 'Eliminando...' : 'Eliminar'}
         />
       </DropdownMenuContent>
     </DropdownMenu>

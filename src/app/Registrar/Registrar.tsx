@@ -99,7 +99,7 @@ export default function Registrar() {
                         className="w-full"
                     ></ComboBox>
 
-                    <Button onClick={handleRegistrar} className="w-full mt-4">Registrarse</Button>
+                    <Button variant="blue" onClick={handleRegistrar} className="w-full mt-4">Registrarse</Button>
                 </div>
             </div>
         </>

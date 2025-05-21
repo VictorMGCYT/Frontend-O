@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import useTableStore from "@/stores/table-store";
 import AlertDialogTable from "@/components/custom/table/AlertDialogTable";
 import { deleteServicio } from "./deleteServicios";
+import { updateServicio } from "./updateServicio";
 import {
   Dialog,
   DialogContent,
@@ -39,8 +40,8 @@ export default function ServiciosTableActions({ servicio }: { servicio: any }) {
 
   const handleUpdate = async () => {
     try {
-      // Aquí deberías implementar la función para actualizar el servicio
-      // await updateServicio(servicio.servicio_id, formData);
+
+      await updateServicio(servicio.servicio_id, formData);
       toast.success('Servicio actualizado correctamente');
       setTableActionUsed(!tableActionUsed);
       setOpen(false);
@@ -86,8 +87,8 @@ export default function ServiciosTableActions({ servicio }: { servicio: any }) {
                   Nombre
                 </Label>
                 <Input
-                  id="nombre"
-                  name="nombre"
+                  id="servicio_nombre"
+                  name="servicio_nombre"
                   value={formData.nombre}
                   onChange={handleChange}
                   className="col-span-3"
@@ -95,11 +96,11 @@ export default function ServiciosTableActions({ servicio }: { servicio: any }) {
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="precio" className="text-right">
-                  Precio
+                  precio
                 </Label>
                 <Input
-                  id="precio"
-                  name="precio"
+                  id="servicio_precio"
+                  name="servicio_precio"
                   type="number"
                   value={formData.precio}
                   onChange={handleChange}

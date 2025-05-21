@@ -67,6 +67,9 @@ export default function DentistFilters({
     })
       .then((response) => {
         if (!response.ok) {
+
+          console.log(response)
+          console.log(response.body)
           throw new Error("Error al agregar paciente");
         }
         console.log(response.json())
@@ -132,7 +135,7 @@ export default function DentistFilters({
           className="w-30"
         />
 
-        <Button onClick={() => setOpen(true)}>Agregar Paciente</Button>
+        <Button variant="blue" onClick={() => setOpen(true)}>Agregar Paciente</Button>
       </div>
 
       <Dialog open={open} onOpenChange={setOpen}>
@@ -180,8 +183,8 @@ export default function DentistFilters({
             className="w-full"
           />
           <div className="flex justify-end gap-2 mt-4">
-            <Button onClick={() => setOpen(false)}>Cancelar</Button>
-            <Button onClick={handleSave}>Guardar</Button>
+            <Button variant="red" onClick={() => setOpen(false)}>Cancelar</Button>
+            <Button variant="blue" onClick={handleSave}>Guardar</Button>
           </div>
         </DialogContent>
       </Dialog>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -25,58 +25,51 @@ export default function DentistFilters({
   updateQueryParams,
 }: DentistTableFiltersProps) {
   const [open, setOpen] = useState(false);
-  const [formData, setFormData] = useState({ name: "", precio: "" });
+  const [formData, setFormData] = useState({
+    servicio_nombre: "",
+    servicio_precio: ""
+  });
+
+ 
 
   const url: string | undefined = process.env.NEXT_PUBLIC_API;
+  const token = sessionStorage.getItem("token");
 
-    const token = sessionStorage.getItem('token');
-    const [pacienteData, setPacienteData] = useState({
-      servicio_nombre: "",
-      servicio_precio: 0.0
-    });
-
-
-    const handleChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setPacienteData({
-          ...pacienteData,
-          [e.target.name]: e.target.value,
-      });
-      console.log(pacienteData)
-  };
-
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSave = () => {
+    const dataToSend = {
+      servicio_nombre: formData.servicio_nombre,
+      servicio_precio: parseFloat(formData.servicio_precio) || 0,
+    };
 
     fetch(`${url}/servicios/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        'Authorization': `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(pacienteData),
+      body: JSON.stringify(dataToSend),
     })
       .then((response) => {
         if (!response.ok) {
-
-          throw new Error("Error al agregar servicio");
+          return response.json().then((errorData) => {
+            throw new Error(errorData.message || "Error al agregar servicio");
+          });
         }
-        console.log(response.json())
         return response.json();
       })
-      .then((data) => {
+      .then(() => {
         Swal.fire({
           icon: "success",
-          title: "servicio agregado",
+          title: "Servicio agregado",
           text: "El servicio ha sido registrado correctamente",
           timer: 3000,
         });
-        //router.push("/servicios");
       })
       .catch((error) => {
-        console.log(error)
         Swal.fire({
           icon: "error",
           title: "Error",
@@ -111,31 +104,31 @@ export default function DentistFilters({
           onEnter={() => updateQueryParams({ creacion, offset: "0" })}
           className="w-30"
         />
-        <Button onClick={() => setOpen(true)}>Agregar Paciente</Button>
+        <Button variant="blue" onClick={() => setOpen(true)}>Agregar Servicio</Button>
       </div>
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Agregar Nuevo Paciente</DialogTitle>
+            <DialogTitle>Agregar Nuevo Servicio</DialogTitle>
           </DialogHeader>
           <Input
             type="text"
-            name="name"
-            placeholder="Nombre"
-            value={formData.name}
+            name="servicio_nombre"
+            placeholder="Nombre del servicio"
+            value={formData.servicio_nombre}
             onChange={handleChange}
           />
           <Input
             type="number"
-            name="precio"
-            placeholder="0.0"
-            value={formData.precio}
+            name="servicio_precio"
+            placeholder="Precio"
+            value={formData.servicio_precio}
             onChange={handleChange}
           />
           <div className="flex justify-end gap-2 mt-4">
-            <Button onClick={() => setOpen(false)}>Cancelar</Button>
-            <Button onClick={handleSave}>Guardar</Button>
+            <Button variant="red" onClick={() => setOpen(false)}>Cancelar</Button>
+            <Button variant="blue" onClick={handleSave}>Guardar</Button>
           </div>
         </DialogContent>
       </Dialog>

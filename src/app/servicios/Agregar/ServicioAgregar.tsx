@@ -29,7 +29,7 @@ export default function ServicioAgregar() {
     
 
     const handleSubmit = () => {
-        fetch(`${url}/servicios/create`, {
+        fetch(`${url}/servicios/crear`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -39,6 +39,9 @@ export default function ServicioAgregar() {
         })
             .then((response) => {
                 if (!response.ok) {
+
+                    console.log(response)
+                    console.log(response.body)
                     
                     throw new Error("Error al agregar servicio");
                 }
@@ -55,7 +58,7 @@ export default function ServicioAgregar() {
                 //router.push("/servicios");
             })
             .catch((error) => {
-                console.log(error)
+                console.log(error);
                 Swal.fire({
                     icon: "error",
                     title: "Error",

@@ -124,7 +124,7 @@ function AlertDialogAction({
 }: React.ComponentProps<typeof AlertDialogPrimitive.Action>) {
   return (
     <AlertDialogPrimitive.Action
-      className={cn(buttonVariants(), className)}
+      className={cn(buttonVariants({variant: "blue"}), className)}
       {...props}
     />
   )
@@ -136,7 +136,12 @@ function AlertDialogCancel({
 }: React.ComponentProps<typeof AlertDialogPrimitive.Cancel>) {
   return (
     <AlertDialogPrimitive.Cancel
-      className={cn(buttonVariants({ variant: "outline" }), className)}
+      className={cn(
+        // Aquí agregas las clases para que sea rojo
+        buttonVariants({ variant: "outline" }),
+        "bg-red-600 text-white hover:bg-red-700",
+        className
+      )}
       {...props}
     />
   )
