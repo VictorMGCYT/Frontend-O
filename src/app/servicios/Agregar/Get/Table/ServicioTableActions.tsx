@@ -1,6 +1,13 @@
 import * as React from "react";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuLabel, 
+  DropdownMenuSeparator, 
+  DropdownMenuTrigger 
+} from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from 'lucide-react';
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -17,16 +24,28 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 
 export default function ServiciosTableActions({ servicio }: { servicio: any }) {
   const { setTableActionUsed, tableActionUsed } = useTableStore();
   const router = useRouter();
+
   const [formData, setFormData] = useState({
-    nombre: servicio.nombre || '',
-    precio: servicio.precio || 0
+    servicio_nombre: servicio.servicio_nombre || "",
+    servicio_precio: servicio.servicio_precio || 0
   });
+
   const [open, setOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    // Actualizar el estado cuando cambie el servicio
+    setFormData({
+      servicio_nombre: servicio.servicio_nombre || "",
+      servicio_precio: servicio.servicio_precio || 0
+    });
+  }, [servicio]);
 
   const handleDelete = async () => {
     try {
@@ -34,13 +53,15 @@ export default function ServiciosTableActions({ servicio }: { servicio: any }) {
       toast.success('Servicio eliminado correctamente');
       setTableActionUsed(!tableActionUsed);
     } catch (error: any) {
+      console.error('Error eliminando Servicio: ', error)
       toast.error('Error: No tienes acceso para eliminar');
+    } finally {
+      setIsDeleting(false);
     }
   };
 
   const handleUpdate = async () => {
     try {
-
       await updateServicio(servicio.servicio_id, formData);
       toast.success('Servicio actualizado correctamente');
       setTableActionUsed(!tableActionUsed);
@@ -54,7 +75,7 @@ export default function ServiciosTableActions({ servicio }: { servicio: any }) {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: name === 'precio' ? parseFloat(value) || 0 : value
+      [name]: name === "servicio_precio" ? Number(value) : value
     }));
   };
 
@@ -63,14 +84,13 @@ export default function ServiciosTableActions({ servicio }: { servicio: any }) {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="h-8 w-8 p-0">
           <span className="sr-only">Open menu</span>
-          <MoreHorizontal />
+          <MoreHorizontal className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Acciones</DropdownMenuLabel>
         <DropdownMenuSeparator />
 
-        {/* Diálogo para actualizar servicio */}
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
@@ -83,26 +103,26 @@ export default function ServiciosTableActions({ servicio }: { servicio: any }) {
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="nombre" className="text-right">
+                <Label htmlFor="servicio_nombre" className="text-right">
                   Nombre
                 </Label>
                 <Input
                   id="servicio_nombre"
                   name="servicio_nombre"
-                  value={formData.nombre}
+                  value={formData.servicio_nombre}
                   onChange={handleChange}
                   className="col-span-3"
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="precio" className="text-right">
-                  precio
+                <Label htmlFor="servicio_precio" className="text-right">
+                  Precio
                 </Label>
                 <Input
                   id="servicio_precio"
                   name="servicio_precio"
                   type="number"
-                  value={formData.precio}
+                  value={formData.servicio_precio}
                   onChange={handleChange}
                   className="col-span-3"
                 />

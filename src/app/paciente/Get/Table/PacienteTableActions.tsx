@@ -22,6 +22,7 @@ import {
 export default function PacienteTableActions({ paciente }: { paciente: any }) {
   const { setTableActionUsed, tableActionUsed } = useTableStore();
   const router = useRouter();
+  
   const [formData, setFormData] = useState({
     paciente_nombres: paciente.paciente_nombres || "",
     paciente_apellidos: paciente.paciente_apellidos || "",

@@ -24,7 +24,7 @@ const items = [
   },
   {
     title: "Dentistas",
-    url: "/Dentist/Get",
+    url: "/dentist/Get",
     icon: Home,
     
   },

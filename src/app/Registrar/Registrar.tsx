@@ -68,7 +68,7 @@ export default function Registrar() {
     
     const roles = [
         { value: 'user', label: 'Usuario' },
-        { value: 'dentis', label: 'Dentista' }
+        { value: 'dentist', label: 'Dentista' }
     ];
     return (
         <>
